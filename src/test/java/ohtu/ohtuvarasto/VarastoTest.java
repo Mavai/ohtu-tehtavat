@@ -64,5 +64,63 @@ public class VarastoTest {
         // varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
+    
+    @Test
+    public void virheellinenVarastoNollataan() {
+        Varasto virheellinen = new Varasto(-1);
+        
+        assertEquals(0, virheellinen.getTilavuus(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void varastoTilavuudellaJaSaldollaLuodaanOikein() {
+        Varasto v = new Varasto(10, 5);
+        
+        assertEquals(10, v.getTilavuus(), vertailuTarkkuus);
+        assertEquals(5, v.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void varastoVirheelliselläTilavuudellaJaSaldollaNollataan() {
+        Varasto virheellinen = new Varasto(-1, -5);
+        
+        assertEquals(0, virheellinen.getTilavuus(), vertailuTarkkuus);
+        assertEquals(0, virheellinen.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void negatiivinenLisäysEiVaikuta() {
+        varasto.lisaaVarastoon(-1);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void liikaaLisattaessaVarastoTayteen() {
+        varasto.lisaaVarastoon(11);
+        assertEquals(varasto.getTilavuus(), varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void negatiivinenOttoPalauttaaEiOnnistu() {
+        assertEquals(0, varasto.otaVarastosta(-1), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void otonYlittaessaSaldonAnnetaanMitaVoidaan() {
+        varasto.lisaaVarastoon(5);
+        assertEquals(5, varasto.otaVarastosta(6), vertailuTarkkuus);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void toStringToimii() {
+        assertEquals("saldo = 0.0, vielä tilaa 10.0", varasto.toString());
+    }
+    
+    @Test
+    public void liianIsollaSaldollaLuotuVarastoLuodaanOikein() {
+        Varasto v = new Varasto(10, 11);
+        assertEquals(10, v.getSaldo(), vertailuTarkkuus);
+    }
 
 }
