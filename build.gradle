@@ -6,6 +6,11 @@
  * user guide available at https://docs.gradle.org/3.4.1/userguide/tutorial_java_projects.html
  */
 
+//coveralls
+plugins {
+    id 'com.github.kt3k.coveralls' version '2.8.1'
+}
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
@@ -30,11 +35,19 @@ dependencies {
 // Define the main class for the application
 mainClassName = 'ohtu.ohtuvarasto.Main'
 
+//create jar
 jar {
     manifest {
         attributes 'Main-Class': 'ohtu.ohtuvarasto.Main'
     }
 }
 
+//jacoco
 apply plugin: "jacoco" 
 
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
