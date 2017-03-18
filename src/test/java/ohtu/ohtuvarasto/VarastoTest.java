@@ -120,7 +120,7 @@ public class VarastoTest {
     @Test
     public void liianIsollaSaldollaLuotuVarastoLuodaanOikein() {
         Varasto v = new Varasto(10, 11);
-        assertEquals(10, v.getSaldo(), vertailuTarkkuus);
+        assertEquals(0, v.getSaldo(), vertailuTarkkuus);
     }
 
 }
