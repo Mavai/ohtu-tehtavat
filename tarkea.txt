@@ -1,2 +1,2 @@
-this textfile is meant for
+this file is meant for
 testing git merge conflicts.
