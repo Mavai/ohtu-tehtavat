@@ -1,2 +1,3 @@
+
 this file is meant for
 testing git merge conflicts.
