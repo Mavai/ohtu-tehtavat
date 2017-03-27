@@ -17,6 +17,10 @@ repositories {
     jcenter()
 }
 
+repositories {
+    jcenter()
+}
+
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // The production code uses the SLF4J logging API at compile time
@@ -31,9 +35,22 @@ dependencies {
 */
 
 apply plugin: 'java'
+apply plugin: 'application'
+
+
+mainClassName = 'Main'
+
 
 jar {
     manifest {
-        attributes 'Main-Class': 'ohtu.ohtuvarasto.Main'
+        attributes 'Main-Class': 'Main'
     }
+}
+
+run {
+    standardInput = System.in
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
 }
