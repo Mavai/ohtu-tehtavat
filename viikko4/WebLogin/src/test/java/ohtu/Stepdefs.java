@@ -94,4 +94,77 @@ public class Stepdefs {
     public void incorrectUsernameNadPasswordAreGiven(String username, String password) throws Throwable {
         logInWith(username, password);
     }
+
+    @Given("^new user is selected$")
+    public void newUserIsSelected() throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+    }
+
+    @When("^valid username \"([^\"]*)\" and password \"([^\"]*)\" are given$")
+    public void validUsernameAndPasswordAreGiven(String username, String password) throws Throwable {
+        createAccountWith(username, password);
+    }
+
+    private void createAccountWith(String username, String password) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("signup"));
+        element.submit();
+    }
+
+    @Then("^account has been created$")
+    public void accountHasBeenCreated() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+
+    @When("^too short username \"([^\"]*)\" and valid password \"([^\"]*)\" are given$")
+    public void tooShortUsenameAndValidPasswordAreGiven(String username, String password) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        createAccountWith(username, password);
+    }
+
+    @Then("^user is not created and error \"([^\"]*)\" is reported$")
+    public void userIsNotCreatedAndErrorIsReported(String error) throws Throwable {
+        pageHasContent(error);
+    }
+
+    @When("^valid username \"([^\"]*)\" and too short password \"([^\"]*)\" are given$")
+    public void validUsernameAndTooShortPasswordAreGiven(String username, String password) throws Throwable {
+        createAccountWith(username,password);
+    }
+
+    @When("^valid username \"([^\"]*)\" and password consisting of only letters \"([^\"]*)\" are given$")
+    public void validUsernameAndPasswordConsistingOfOnlyLettersAreGiven(String username, String password) throws Throwable {
+        createAccountWith(username,password);
+    }
+
+    @When("^taken username \"([^\"]*)\" and valid password \"([^\"]*)\" are given$")
+    public void takenUsernameAndValidPasswordAreGiven(String username, String password) throws Throwable {
+        createAccountWith(username,password);
+    }
+
+    @When("^username \"([^\"]*)\" password \"([^\"]*)\" and pssword confirmation \"([^\"]*)\" are given$")
+    public void usernamePasswordAndPsswordConfirmationAreGiven(String username, String password, String passwordConfirmation) throws Throwable {
+        createAccountWith(username,password,passwordConfirmation);
+    }
+
+    private void createAccountWith(String username, String password, String passwordConfirmation) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(passwordConfirmation);
+        element = driver.findElement(By.name("signup"));
+        element.submit();
+    }
 }
