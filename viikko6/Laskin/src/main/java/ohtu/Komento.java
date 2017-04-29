@@ -10,5 +10,9 @@ package ohtu;
  * @author markovai
  */
 public interface Komento {
+
+    void suorita();
+
+    void peru();
     
 }
